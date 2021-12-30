@@ -4,23 +4,22 @@ This Action for [firebase-tools](https://github.com/firebase/firebase-tools) ena
 
 ## Inputs
 
-* `args` - **Required**. This is the arguments you want to use for the `firebase` cli
-
+- `args` - **Required**. This is the arguments you want to use for the `firebase` cli
 
 ## Environment variables
 
-* `FIREBASE_TOKEN` - **Required if GCP_SA_KEY is not set**. The token to use for authentication. This token can be aquired through the `firebase login:ci` command.
+- `FIREBASE_TOKEN` - **Required if GCP_SA_KEY is not set**. The token to use for authentication. This token can be aquired through the `firebase login:ci` command.
 
-* `GCP_SA_KEY` - **Required if FIREBASE_TOKEN is not set**. A **normal** service account key(json format) or a **base64 encoded** service account key with the `Firebase Admin` role in the project.
-If you're deploying functions, you would also need the `Cloud Functions Developer` role. 
-Since the deploy service account is using the App Engine default service account in the deploy process, it also 
-needs the `Service Account User` role.
-If you're only doing Hosting, `Firebase Hosting Admin` is enough.
-https://firebase.google.com/docs/hosting/github-integration
+- `GCP_SA_KEY` - **Required if FIREBASE_TOKEN is not set**. A **normal** service account key(json format) or a **base64 encoded** service account key with the `Firebase Admin` role in the project.
+  If you're deploying functions, you would also need the `Cloud Functions Developer` role.
+  Since the deploy service account is using the App Engine default service account in the deploy process, it also
+  needs the `Service Account User` role.
+  If you're only doing Hosting, `Firebase Hosting Admin` is enough.
+  https://firebase.google.com/docs/hosting/github-integration
 
-* `PROJECT_ID` - **Optional**. To specify a specific project to use for all commands. Not required if you specify a project in your `.firebaserc` file.
+- `PROJECT_ID` - **Optional**. To specify a specific project to use for all commands. Not required if you specify a project in your `.firebaserc` file.
 
-* `PROJECT_PATH` - **Optional**. The path to the folder containing `firebase.json` if it doesn't exist at the root of your repository. e.g. `./my-app`
+- `PROJECT_PATH` - **Optional**. The path to the folder containing `firebase.json` if it doesn't exist at the root of your repository. e.g. `./my-app`
 
 ## Example
 
@@ -62,34 +61,33 @@ jobs:
           name: dist
           path: dist
       - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
+        uses: pechisworks/firebase-action@master
         with:
           args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 ```
+
 Alternatively:
 
 ```yaml
-        env:
-          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+env:
+  GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
 ```
 
-
-If you have multiple hosting environments you can specify which one in the args line. 
+If you have multiple hosting environments you can specify which one in the args line.
 e.g. `args: deploy --only hosting:[environment name]`
 
 If you want to add a message to a deployment (e.g. the Git commit message) you need to take extra care and escape the quotes or the YAML breaks.
 
 ```yaml
-        with:
-          args: deploy --message \"${{ github.event.head_commit.message }}\"
+with:
+  args: deploy --message \"${{ github.event.head_commit.message }}\"
 ```
 
 ## License
 
 The Dockerfile and associated scripts and documentation in this project are released under the [MIT License](LICENSE).
-
 
 ### Recommendation
 

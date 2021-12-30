@@ -1,9 +1,9 @@
 FROM node:16-buster
 
 LABEL version="1.2.3"
-LABEL repository="https://github.com/w9jds/firebase-action"
-LABEL homepage="https://github.com/w9jds/firebase-action"
-LABEL maintainer="Jeremy Shore <w9jds@github.com>"
+LABEL repository="https://github.com/pechisworks/firebase-action"
+LABEL homepage="https://github.com/pechisworks/firebase-action"
+LABEL maintainer="Jeremy Shore <pechisworks@github.com>"
 
 LABEL com.github.actions.name="GitHub Action for Firebase"
 LABEL com.github.actions.description="Wraps the firebase-tools CLI to enable common commands."
@@ -15,8 +15,8 @@ RUN apt update && apt install -y software-properties-common
 RUN add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
 RUN apt update && apt install -y jq adoptopenjdk-8-hotspot-jre git && apt autoremove --purge -y && apt clean -y
 
-RUN npm i -g npm@7.19.1
-RUN npm i -g firebase-tools@9.21.0
+RUN npm i -g npm@8.1.2
+RUN npm i -g firebase-tools@10.0.1
 
 COPY LICENSE README.md /
 COPY "entrypoint.sh" "/entrypoint.sh"
